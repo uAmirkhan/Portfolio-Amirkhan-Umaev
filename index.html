@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Амирхан Умаев · Project Manager в Web3 / FinTech</title>
+<meta name="description" content="Веду продукты в регулируемом финтехе и Web3. От первой гипотезы до production-релиза. Без потерь между бизнесом и кодом." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4efe6;
+    --bg-2:#ebe4d6;
+    --ink:#15140f;
+    --ink-2:#2a2820;
+    --muted:#6b6557;
+    --line:#1514100f;
+    --line-2:#15141022;
+    --paper:#fbf7ee;
+    --accent: oklch(0.62 0.13 145);
+    --accent-ink: oklch(0.22 0.05 145);
+    --warn: oklch(0.62 0.13 60);
+    --display:'Bricolage Grotesque', serif;
+    --sans:'Manrope', system-ui, sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --maxw:1280px;
+    --pad:clamp(20px,4vw,56px);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none}
+  ::selection{background:var(--accent);color:#fff}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+  .display{font-family:var(--display);font-weight:500;letter-spacing:-0.02em;line-height:1.0;font-feature-settings:"ss01"}
+  .mono{font-family:var(--mono);font-size:.8em;letter-spacing:.02em;text-transform:uppercase}
+  .eyebrow{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--muted)}
+  .rule{height:1px;background:var(--line-2);width:100%;border:0}
+
+  /* ---------------- NAV ---------------- */
+  nav.top{position:sticky;top:0;z-index:30;backdrop-filter:saturate(140%) blur(12px);background:color-mix(in oklab,var(--bg) 78%, transparent);border-bottom:1px solid var(--line)}
+  nav.top .row{display:flex;align-items:center;justify-content:space-between;height:60px}
+  nav.top .brand{display:flex;align-items:center;gap:10px;font-weight:600}
+  nav.top .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in oklab,var(--accent) 22%,transparent)}
+  nav.top .links{display:flex;gap:28px;font-size:14px;color:var(--ink-2)}
+  nav.top .links a{position:relative}
+  nav.top .links a:hover{color:var(--ink)}
+  nav.top .cta{font-size:13px;padding:9px 14px;border:1px solid var(--ink);border-radius:999px;background:var(--ink);color:var(--paper);transition:transform .2s}
+  nav.top .cta:hover{transform:translateY(-1px)}
+  @media (max-width:780px){nav.top .links{display:none}}
+
+  /* ---------------- HERO ---------------- */
+  .hero{padding:clamp(48px,9vw,120px) 0 clamp(40px,6vw,80px);position:relative;overflow:hidden}
+  .hero .grid{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(24px,5vw,72px);align-items:end}
+  .hero h1{font-size:clamp(44px,7.4vw,108px);margin:.18em 0 .35em;letter-spacing:-0.035em}
+  .hero h1 em{font-style:normal;color:var(--accent-ink);position:relative;background:linear-gradient(transparent 62%, color-mix(in oklab,var(--accent) 35%,transparent) 62% 92%, transparent 92%);padding:0 .05em}
+  .hero .lede{font-size:clamp(17px,1.5vw,21px);max-width:46ch;color:var(--ink-2);line-height:1.5}
+  .hero .pos{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line-2);padding:6px 12px;border-radius:999px;font-size:12px;color:var(--ink-2);background:var(--paper)}
+  .hero .pos b{color:var(--ink);font-weight:600}
+  .hero .arr{display:inline-block;width:16px;text-align:center;color:var(--accent-ink)}
+  .hero .ctas{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;font-weight:600;font-size:15px;transition:transform .2s, background .2s, color .2s}
+  .btn.primary{background:var(--ink);color:var(--paper)}
+  .btn.primary:hover{transform:translateY(-2px);background:var(--accent-ink)}
+  .btn.ghost{color:var(--ink);border:1px solid var(--line-2)}
+  .btn.ghost:hover{background:var(--paper)}
+  .btn .arrow{transition:transform .2s}
+  .btn:hover .arrow{transform:translateX(4px)}
+
+  /* hero card */
+  .card-ident{background:var(--paper);border:1px solid var(--line-2);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden}
+  .card-ident:before{content:"";position:absolute;inset:auto -40% -60% auto;width:80%;height:80%;background:radial-gradient(closest-side, color-mix(in oklab, var(--accent) 30%, transparent), transparent 70%);filter:blur(4px);pointer-events:none}
+  .ident-head{display:flex;align-items:center;gap:14px}
+  .avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg, var(--ink) 0%, var(--accent-ink) 60%, var(--accent) 100%);display:grid;place-items:center;color:#fbf7ee;font-family:var(--display);font-size:22px;font-weight:600;letter-spacing:-.02em}
+  .ident-name{font-weight:600;font-size:18px}
+  .ident-sub{font-size:13px;color:var(--muted)}
+  .ident-rows{display:grid;gap:10px;font-size:14px}
+  .ident-row{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed var(--line-2);padding-bottom:8px}
+  .ident-row:last-child{border-bottom:0;padding-bottom:0}
+  .ident-row span:first-child{color:var(--muted);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em}
+  .ident-row span:last-child{font-weight:500}
+  .badge-avail{display:inline-flex;align-items:center;gap:6px;color:var(--accent-ink);font-weight:600}
+  .badge-avail .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);position:relative;box-shadow:0 0 0 0 color-mix(in oklab,var(--accent) 50%,transparent);animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in oklab,var(--accent) 60%,transparent)}80%,100%{box-shadow:0 0 0 12px transparent}}
+
+  .hero .meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-top:48px;margin-top:48px;border-top:1px solid var(--line-2)}
+
+  @media (max-width:880px){
+    .hero .grid{grid-template-columns:1fr}
+    .hero .meta{flex-wrap:wrap;gap:10px}
+  }
+
+  /* ---------------- METRICS ---------------- */
+  .metrics{padding:clamp(40px,6vw,80px) 0;background:var(--ink);color:var(--paper);position:relative}
+  .metrics .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .metric{padding:36px 28px;border-right:1px solid #ffffff14}
+  .metric:last-child{border-right:0}
+  .metric .num{font-family:var(--display);font-size:clamp(48px,5.5vw,84px);line-height:.95;letter-spacing:-.04em;font-weight:500}
+  .metric .num small{font-size:.42em;color:#ffffff80;letter-spacing:0;font-family:var(--sans);font-weight:400;display:inline-block;margin-left:.2em}
+  .metric .lab{margin-top:14px;font-size:13px;color:#ffffffa6;line-height:1.4}
+  .metrics .foot{padding:28px var(--pad) 0;font-style:italic;color:#ffffff80;border-top:1px solid #ffffff14;margin-top:8px;font-size:14px}
+  @media (max-width:880px){.metrics .grid{grid-template-columns:repeat(2,1fr)}.metric{border-right:0;border-top:1px solid #ffffff14}.metric:nth-child(2n){border-left:1px solid #ffffff14}.metric:nth-child(-n+2){border-top:0}}
+
+  /* ---------------- SECTION HEADERS ---------------- */
+  section.block{padding:clamp(72px,9vw,140px) 0;border-top:1px solid var(--line-2)}
+  .sec-head{display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:end;margin-bottom:56px}
+  .sec-head h2{font-size:clamp(38px,5.4vw,72px);margin:.2em 0 0;letter-spacing:-.03em}
+  .sec-head .sub{color:var(--muted);max-width:48ch}
+  @media (max-width:780px){.sec-head{grid-template-columns:1fr;gap:14px}}
+
+  /* ---------------- FOR WHOM ---------------- */
+  .who{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .who .c{padding:32px;background:var(--paper);border:1px solid var(--line-2);border-radius:20px;display:flex;flex-direction:column;gap:16px;transition:transform .25s, box-shadow .25s, border-color .25s}
+  .who .c:hover{transform:translateY(-4px);border-color:var(--ink);box-shadow:0 24px 60px -30px #15141033}
+  .who .c .ico{width:44px;height:44px;border-radius:12px;background:var(--bg-2);display:grid;place-items:center;font-family:var(--display);font-size:20px;font-weight:500;color:var(--accent-ink)}
+  .who .c h3{font-family:var(--display);font-weight:500;font-size:24px;margin:0;letter-spacing:-.02em;line-height:1.1}
+  .who .c p{margin:0;color:var(--ink-2);font-size:15px}
+  @media (max-width:880px){.who{grid-template-columns:1fr}}
+
+  /* ---------------- WORK ---------------- */
+  .works{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .work{position:relative;border:1px solid var(--line-2);border-radius:24px;background:var(--paper);overflow:hidden;display:flex;flex-direction:column;min-height:520px;transition:transform .3s, box-shadow .3s}
+  .work:hover{transform:translateY(-4px);box-shadow:0 30px 60px -30px #15141033}
+  .work .visual{aspect-ratio:1.3/1;border-bottom:1px solid var(--line-2);position:relative;overflow:hidden}
+  .work .body{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .work .role{display:inline-block;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+  .work h3{font-family:var(--display);font-size:30px;margin:0;font-weight:500;letter-spacing:-.02em;line-height:1.05}
+  .work .meta{font-size:13px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em}
+  .work p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.55}
+  .work .cta{margin-top:auto;padding-top:14px;border-top:1px dashed var(--line-2);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);text-transform:uppercase;font-size:12px;letter-spacing:.14em;color:var(--ink)}
+  .work .cta .arrow{transition:transform .3s}
+  .work:hover .cta .arrow{transform:translateX(4px)}
+
+  /* visual A — BitTrace graph */
+  .vis-a{background:radial-gradient(circle at 30% 30%, color-mix(in oklab,var(--accent) 30%,var(--paper)), var(--paper) 70%)}
+  .vis-a svg{position:absolute;inset:0;width:100%;height:100%}
+  /* visual B — IDO bars */
+  .vis-b{background:var(--ink);color:var(--paper);display:grid;grid-template-rows:1fr auto;padding:22px;gap:14px}
+  .vis-b .bars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:100%}
+  .vis-b .bars span{background:linear-gradient(180deg, var(--accent), var(--accent-ink));border-radius:6px 6px 0 0;display:block}
+  .vis-b .label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#ffffffa6;display:flex;justify-content:space-between}
+  /* visual C — NFT grid */
+  .vis-c{background:var(--bg-2);padding:18px;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr);gap:6px}
+  .vis-c span{background:var(--paper);border:1px solid var(--line-2);border-radius:6px}
+  .vis-c span:nth-child(odd){background:linear-gradient(135deg, var(--ink) 0%, var(--accent-ink) 100%)}
+  .vis-c span:nth-child(7n){background:var(--accent)}
+
+  @media (max-width:880px){.works{grid-template-columns:1fr}}
+
+  /* ---------------- CASE BITTRACE ---------------- */
+  .case-h{display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:end;margin-bottom:48px}
+  .case-h h2{font-family:var(--display);font-size:clamp(40px,5.5vw,72px);font-weight:500;letter-spacing:-.03em;margin:0;line-height:1}
+  .case-h .num{font-family:var(--display);font-size:clamp(80px,10vw,160px);line-height:.85;letter-spacing:-.05em;color:var(--accent)}
+  .case-h .right{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:right}
+  @media (max-width:780px){.case-h{grid-template-columns:1fr;gap:8px}.case-h .right{text-align:left}}
+
+  .case-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media (max-width:880px){.case-grid{grid-template-columns:1fr}}
+
+  .panel{background:var(--paper);border:1px solid var(--line-2);border-radius:24px;padding:32px}
+  .panel h4{font-family:var(--display);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--muted);margin:0 0 14px;font-family:var(--mono)}
+  .panel h3{font-family:var(--display);font-size:28px;margin:0 0 14px;letter-spacing:-.02em;line-height:1.15;font-weight:500}
+  .panel p{color:var(--ink-2);margin:0 0 12px}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line-2);border-radius:16px;overflow:hidden;margin-top:24px;background:var(--paper)}
+  .stat-grid .s{padding:24px;border-right:1px solid var(--line-2)}
+  .stat-grid .s:last-child{border-right:0}
+  .stat-grid .s .l{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .stat-grid .s .v{font-family:var(--display);font-size:34px;font-weight:500;letter-spacing:-.02em;line-height:1;margin-top:8px}
+  @media (max-width:780px){.stat-grid{grid-template-columns:repeat(2,1fr)}.stat-grid .s:nth-child(2){border-right:0}.stat-grid .s:nth-child(-n+2){border-bottom:1px solid var(--line-2)}}
+
+  .role-list{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+  .role-list li{padding-left:22px;position:relative;color:var(--ink-2);font-size:15px}
+  .role-list li:before{content:"";position:absolute;left:0;top:.65em;width:10px;height:1px;background:var(--accent-ink)}
+
+  /* achievements */
+  .achs{display:grid;gap:16px;margin-top:32px}
+  .ach{display:grid;grid-template-columns:auto 1fr;gap:24px;background:var(--paper);border:1px solid var(--line-2);border-radius:20px;padding:28px;transition:border-color .25s, transform .25s}
+  .ach:hover{border-color:var(--ink);transform:translateX(4px)}
+  .ach .n{font-family:var(--display);font-size:54px;font-weight:500;letter-spacing:-.04em;line-height:1;color:var(--accent-ink);min-width:64px}
+  .ach h3{font-family:var(--display);font-weight:500;font-size:22px;letter-spacing:-.015em;margin:0 0 12px}
+  .ach .grid3{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:24px}
+  .ach .grid3 .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .ach .grid3 p{margin:0;color:var(--ink-2);font-size:14px;line-height:1.5}
+  .ach .tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+  @media (max-width:780px){.ach{grid-template-columns:1fr;gap:8px}.ach .grid3{grid-template-columns:1fr}}
+
+  .pill{display:inline-flex;align-items:center;padding:5px 10px;border:1px solid var(--line-2);border-radius:999px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-2);background:var(--bg)}
+  .pill.dark{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .pill.acc{background:color-mix(in oklab,var(--accent) 22%,var(--paper));border-color:color-mix(in oklab,var(--accent) 50%,var(--paper));color:var(--accent-ink)}
+
+  /* process delta */
+  .delta{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;background:var(--ink);color:var(--paper);border-radius:24px;padding:40px;margin-top:32px}
+  .delta .big{font-family:var(--display);font-size:clamp(72px,10vw,140px);line-height:.85;letter-spacing:-.04em;color:var(--accent)}
+  .delta h4{margin:0 0 8px;font-family:var(--display);font-weight:500;font-size:24px;letter-spacing:-.01em}
+  .delta p{margin:0;color:#ffffffb3}
+  @media (max-width:780px){.delta{grid-template-columns:1fr}}
+
+  /* ---------------- SFXDX ---------------- */
+  .sfx{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:32px}
+  .sfx .pj{background:var(--paper);border:1px solid var(--line-2);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px}
+  .sfx .pj .hd{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .sfx .pj h3{font-family:var(--display);font-size:26px;margin:0;letter-spacing:-.02em;font-weight:500}
+  .sfx .pj .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+  .sfx .pj .stats div{padding:12px 14px;border:1px solid var(--line-2);border-radius:12px;background:var(--bg)}
+  .sfx .pj .stats .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .sfx .pj .stats .v{font-family:var(--display);font-size:20px;font-weight:500}
+  .sfx .pj .res{padding:12px 16px;background:var(--ink);color:var(--paper);border-radius:12px;font-size:14px;margin-top:auto}
+  .sfx .pj .res b{color:var(--accent)}
+  @media (max-width:880px){.sfx{grid-template-columns:1fr}}
+
+  /* ---------------- EDU ---------------- */
+  .edu{display:grid;grid-template-columns:1.3fr 1fr;gap:18px}
+  .edu .e{background:var(--paper);border:1px solid var(--line-2);border-radius:20px;padding:32px}
+  .edu .e .yr{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .edu .e h3{font-family:var(--display);font-weight:500;font-size:30px;letter-spacing:-.02em;margin:6px 0 18px}
+  .edu .e p{color:var(--ink-2);font-size:15px;margin:0 0 12px}
+  .edu .e .proj{margin-top:18px;padding-top:18px;border-top:1px dashed var(--line-2)}
+  .edu .e .proj h4{font-family:var(--display);font-weight:500;font-size:18px;margin:0 0 6px;letter-spacing:-.01em}
+  .lang{margin-top:18px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;background:var(--ink);color:var(--paper);border-radius:20px;padding:24px 28px}
+  .lang .lvl{font-family:var(--display);font-size:38px;font-weight:500;color:var(--accent)}
+  .lang .nm{font-family:var(--display);font-size:18px;font-weight:500}
+  .lang .nt{font-size:13px;color:#ffffffa6}
+  .lang .bar{width:140px;height:4px;background:#ffffff22;border-radius:99px;overflow:hidden}
+  .lang .bar i{display:block;width:75%;height:100%;background:var(--accent)}
+  @media (max-width:880px){.edu{grid-template-columns:1fr}}
+
+  /* ---------------- PROCESS ---------------- */
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:24px;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+  .step{padding:36px 28px;border-right:1px solid var(--line-2);position:relative;transition:background .3s}
+  .step:last-child{border-right:0}
+  .step:hover{background:var(--paper)}
+  .step .wk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .step .dot{width:10px;height:10px;border-radius:50%;background:var(--ink);display:inline-block;margin-right:8px}
+  .step:nth-child(1) .dot{background:var(--accent-ink)}
+  .step:nth-child(2) .dot{background:var(--accent-ink);opacity:.75}
+  .step:nth-child(3) .dot{background:var(--accent-ink);opacity:.5}
+  .step:nth-child(4) .dot{background:var(--accent);opacity:1}
+  .step h3{font-family:var(--display);font-weight:500;font-size:26px;margin:18px 0 12px;letter-spacing:-.02em;line-height:1.1}
+  .step p{font-size:14px;color:var(--ink-2);margin:0}
+  @media (max-width:880px){.timeline{grid-template-columns:1fr}.step{border-right:0;border-bottom:1px solid var(--line-2)}.step:last-child{border-bottom:0}}
+
+  /* ---------------- SKILLS ---------------- */
+  .skills{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .sk{background:var(--paper);border:1px solid var(--line-2);border-radius:20px;padding:28px}
+  .sk h3{font-family:var(--display);font-weight:500;font-size:22px;margin:0 0 16px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+  .sk h3 .nb{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--bg);padding:3px 8px;border-radius:99px}
+  .sk .tags{display:flex;flex-wrap:wrap;gap:6px}
+  @media (max-width:880px){.skills{grid-template-columns:1fr}}
+
+  /* ---------------- ABOUT ---------------- */
+  .about{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:start}
+  .about .col p{font-size:17px;line-height:1.65;color:var(--ink-2);text-wrap:pretty;margin:0 0 16px}
+  .about .col p b{color:var(--ink)}
+  .facts{display:grid;gap:10px;margin-top:8px}
+  .fact{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:14px 18px;background:var(--paper);border:1px solid var(--line-2);border-radius:14px}
+  .fact .em{font-family:var(--display);font-size:24px;font-weight:500;color:var(--accent-ink);min-width:42px;text-align:center}
+  .fact .t{font-size:14px;color:var(--ink-2)}
+  @media (max-width:880px){.about{grid-template-columns:1fr;gap:24px}}
+
+  /* ---------------- QUOTE ---------------- */
+  .quote{padding:clamp(80px,11vw,160px) 0;background:var(--ink);color:var(--paper);border-top:1px solid var(--line-2)}
+  .quote q{font-family:var(--display);font-size:clamp(40px,7vw,104px);line-height:1.02;letter-spacing:-.035em;font-weight:500;quotes:"«" "»";display:block;text-wrap:balance}
+  .quote q:before{content:open-quote;color:var(--accent);margin-right:.05em}
+  .quote q:after{content:close-quote;color:var(--accent);margin-left:.05em}
+  .quote .att{margin-top:32px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:#ffffffa6}
+
+  /* ---------------- CTA ---------------- */
+  .ctab{padding:clamp(80px,10vw,140px) 0;text-align:left;border-top:1px solid var(--line-2)}
+  .ctab h2{font-family:var(--display);font-size:clamp(48px,8vw,128px);margin:0;letter-spacing:-.04em;line-height:.95;font-weight:500;text-wrap:balance;max-width:18ch}
+  .ctab .sub{margin-top:20px;color:var(--ink-2);font-size:18px;max-width:54ch}
+  .ctab .row{display:flex;flex-wrap:wrap;gap:14px;margin-top:42px}
+  .ctab .reply{margin-top:18px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+
+  /* ---------------- FOOTER ---------------- */
+  footer{padding:48px 0;border-top:1px solid var(--line-2);font-size:14px;color:var(--ink-2)}
+  footer .grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
+  footer .links{display:flex;flex-direction:column;gap:8px}
+  footer .links a{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line-2);padding:8px 0;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em}
+  footer .links a:hover{color:var(--accent-ink)}
+  footer .links a:after{content:"↗";opacity:.5}
+  footer .meta{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+  footer .name{font-family:var(--display);font-size:28px;font-weight:500;letter-spacing:-.02em;margin-bottom:6px}
+  @media (max-width:780px){footer .grid{grid-template-columns:1fr}}
+
+  /* utility */
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;animation:bob 2.5s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
+
+  /* ticker */
+  .ticker{overflow:hidden;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:var(--paper);padding:14px 0;mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%)}
+  .ticker .track{display:flex;gap:56px;white-space:nowrap;animation:scroll 40s linear infinite;font-family:var(--display);font-size:22px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
+  .ticker .track span:nth-child(odd){color:var(--accent-ink)}
+  .ticker .track span:nth-child(even){opacity:.5}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap row">
+    <a href="#top" class="brand"><span class="dot"></span> Амирхан Умаев</a>
+    <div class="links">
+      <a href="#work">Кейсы</a>
+      <a href="#bittrace">BitTrace</a>
+      <a href="#process">Процесс</a>
+      <a href="#skills">Навыки</a>
+      <a href="#about">О себе</a>
+    </div>
+    <a class="cta" href="#contact">Связаться →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <span class="pos"><span class="badge-avail"><span class="pulse"></span></span> Открыт к ролям · <b>Senior PM · Product Lead · Compliance Product</b></span>
+        <h1 class="display">Веду продукты в&nbsp;<em>регулируемом финтехе</em> и&nbsp;<em>Web3</em>.</h1>
+        <p class="lede">От первой гипотезы до production-релиза. Без потерь между бизнесом и кодом.</p>
+        <div class="ctas">
+          <a class="btn primary" href="#contact">Назначить интервью <span class="arrow">→</span></a>
+          <a class="btn ghost" href="#work">Смотреть кейсы</a>
+        </div>
+      </div>
+      <aside class="card-ident">
+        <div class="ident-head">
+          <div class="avatar">АУ</div>
+          <div>
+            <div class="ident-name">Амирхан Умаев</div>
+            <div class="ident-sub">Project → Product Manager</div>
+          </div>
+        </div>
+        <div class="ident-rows">
+          <div class="ident-row"><span>Локация</span><span>Москва · Remote</span></div>
+          <div class="ident-row"><span>Доступность</span><span class="badge-avail"><span class="pulse"></span> Q2 2026</span></div>
+          <div class="ident-row"><span>Языки</span><span>RU native · EN B2</span></div>
+          <div class="ident-row"><span>Опыт</span><span>2,5 года в проде</span></div>
+          <div class="ident-row"><span>Домен</span><span>Web3 / FinTech / AML</span></div>
+        </div>
+      </aside>
+    </div>
+    <div class="meta">
+      <span>Last updated · May 2026</span>
+      <span>Senior PM track</span>
+      <span>Open to interview</span>
+    </div>
+  </div>
+</header>
+
+<!-- METRICS -->
+<section class="metrics">
+  <div class="wrap">
+    <div class="grid">
+      <div class="metric">
+        <div class="num" data-count="680">0<small>МЛН+</small></div>
+        <div class="lab">on-chain адресов под анализом, 5 сетей</div>
+      </div>
+      <div class="metric">
+        <div class="num" data-count="30">0<small>+</small></div>
+        <div class="lab">Web3 / FinTech проектов в production</div>
+      </div>
+      <div class="metric">
+        <div class="num" data-count="-30">0<small>%</small></div>
+        <div class="lab">ускорение согласований после реорганизации backlog</div>
+      </div>
+      <div class="metric">
+        <div class="num display" style="font-size:clamp(38px,4.4vw,64px)">Сколково</div>
+        <div class="lab">резидентство получено · 2025</div>
+      </div>
+    </div>
+    <div class="foot wrap" style="padding-left:0;padding-right:0">— Каждая цифра — конкретное решение, доведённое до результата.</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span>AML / KYT</span><span>·</span>
+    <span>Risk Scoring</span><span>·</span>
+    <span>Smart Contracts</span><span>·</span>
+    <span>Discovery</span><span>·</span>
+    <span>Backlog Surgery</span><span>·</span>
+    <span>Compliance</span><span>·</span>
+    <span>5 Chains</span><span>·</span>
+    <span>Stakeholder Mgmt</span><span>·</span>
+    <span>AML / KYT</span><span>·</span>
+    <span>Risk Scoring</span><span>·</span>
+    <span>Smart Contracts</span><span>·</span>
+    <span>Discovery</span><span>·</span>
+    <span>Backlog Surgery</span><span>·</span>
+    <span>Compliance</span><span>·</span>
+    <span>5 Chains</span><span>·</span>
+    <span>Stakeholder Mgmt</span><span>·</span>
+  </div>
+</div>
+
+<!-- FOR WHOM -->
+<section class="block" id="who">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">03 — Кому я подхожу</span>
+        <h2 class="display">Узкая<br/>специализация.</h2>
+      </div>
+      <p class="sub">Я не универсальный PM. Технически сложные продукты в регулируемых доменах — там, где «требование регулятора» это не строчка в&nbsp;ТЗ, а red flag для бизнеса. Если это ваш контекст — мы сработаемся.</p>
+    </div>
+    <div class="who">
+      <div class="c">
+        <div class="ico">§</div>
+        <h3>Регулируемый финтех</h3>
+        <p>AML, KYT, KYC, compliance-платформы. Опыт с инвест-проверкой Сколково и аудитом смарт-контрактов. Понимаю, что требование регулятора — это red flag для бизнеса, а не строчка в ТЗ.</p>
+      </div>
+      <div class="c">
+        <div class="ico">⌬</div>
+        <h3>Web3 и блокчейн</h3>
+        <p>5 сетей в проде, смарт-контракты, on-chain аналитика, интеграции через Infura и IPFS. Не «слышал термин», а работал с production-нагрузкой.</p>
+      </div>
+      <div class="c">
+        <div class="ico">⊞</div>
+        <h3>Технические продукты</h3>
+        <p>ML-модели, высоконагруженные модули, сложная архитектура. Backend-бэкграунд позволяет вести discovery с инженерами без потерь и формулировать ТЗ, которое не возвращается на доработку.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED WORK -->
+<section class="block" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">04 — Избранные работы</span>
+        <h2 class="display">Три кейса.<br/>Полный цикл.</h2>
+      </div>
+      <p class="sub">Три якорных проекта, через которые я проходил весь путь — от формулировки гипотезы до production. Под каждым — глубина, цифры и конкретные решения.</p>
+    </div>
+
+    <div class="works">
+      <a class="work" href="#bittrace">
+        <div class="visual vis-a">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="none">
+            <g fill="none" stroke="#15141066" stroke-width="1">
+              <line x1="60" y1="80" x2="160" y2="120"/>
+              <line x1="160" y1="120" x2="240" y2="80"/>
+              <line x1="160" y1="120" x2="220" y2="180"/>
+              <line x1="220" y1="180" x2="320" y2="160"/>
+              <line x1="220" y1="180" x2="280" y2="240"/>
+              <line x1="60" y1="80" x2="100" y2="200"/>
+              <line x1="100" y1="200" x2="220" y2="180"/>
+              <line x1="320" y1="160" x2="360" y2="100"/>
+            </g>
+            <g>
+              <circle cx="60" cy="80" r="10" fill="#15140f"/>
+              <circle cx="160" cy="120" r="14" fill="oklch(0.62 0.13 145)"/>
+              <circle cx="240" cy="80" r="8" fill="#15140f"/>
+              <circle cx="220" cy="180" r="18" fill="oklch(0.22 0.05 145)"/>
+              <circle cx="320" cy="160" r="9" fill="#15140f"/>
+              <circle cx="100" cy="200" r="7" fill="#15140f"/>
+              <circle cx="280" cy="240" r="11" fill="oklch(0.62 0.13 60)"/>
+              <circle cx="360" cy="100" r="6" fill="#15140f"/>
+            </g>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="role">AldanDev · 2024–2026 · 14 мес</span>
+          <h3>BitTrace</h3>
+          <p>AML/KYT-платформа федерального масштаба. Команда 9 человек, релиз каждые 2 недели, база 680 млн+ адресов. Проектировал ядро риск-скоринга, провёл продукт через инвест-проверку Сколково.</p>
+          <div class="cta">Смотреть кейс <span class="arrow">→</span></div>
+        </div>
+      </a>
+
+      <a class="work" href="#sfxdx">
+        <div class="visual vis-b">
+          <div class="bars">
+            <span style="height:30%"></span>
+            <span style="height:55%"></span>
+            <span style="height:42%"></span>
+            <span style="height:78%"></span>
+            <span style="height:60%"></span>
+            <span style="height:88%"></span>
+            <span style="height:72%"></span>
+          </div>
+          <div class="label"><span>Vesting · Solana</span><span>$62K</span></div>
+        </div>
+        <div class="body">
+          <span class="role">SFXDX · 2024 · 5 мес</span>
+          <h3>IDO Launchpad</h3>
+          <p>Платформа запуска токенов на Solana. Полный delivery-цикл: смарт-контракты, вестинг, whitelisting, UI. Сдан в срок, прошёл аудит без критических замечаний.</p>
+          <div class="cta">Смотреть кейс <span class="arrow">→</span></div>
+        </div>
+      </a>
+
+      <a class="work" href="#sfxdx">
+        <div class="visual vis-c">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="body">
+          <span class="role">SFXDX · 2024 · 3,5 мес</span>
+          <h3>NFT Collection</h3>
+          <p>Запуск коллекции под ключ, 10 000 токенов, бюджет $38K, Ethereum, ERC-721. Генерация ассетов, метаданные на IPFS, лендинг с Metamask. 80% продано за 10 дней.</p>
+          <div class="cta">Смотреть кейс <span class="arrow">→</span></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CASE: BITTRACE -->
+<section class="block" id="bittrace" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="case-h">
+      <div class="num display">05</div>
+      <div>
+        <span class="eyebrow">Кейс · Флагман</span>
+        <h2 class="display">BitTrace<br/>AML/KYT-платформа</h2>
+      </div>
+      <div class="right">AldanDev<br/>2024 — 2026 · 14 месяцев<br/>Руководитель проектов</div>
+    </div>
+
+    <div class="case-grid">
+      <div class="panel">
+        <h4>Контекст</h4>
+        <h3>Что за продукт</h3>
+        <p>Платформа анализа блокчейн-транзакций. Помогает банкам, криптобиржам и финтех-компаниям проверять кошельки на связи с криминалом — миксеры, санкционные адреса, скам-схемы — и соответствовать требованиям регуляторов.</p>
+        <p style="color:var(--muted);font-size:14px;margin-top:18px">Сегмент: аналог глобальных AML/KYT-инструментов для blockchain-комплаенса.</p>
+      </div>
+      <div class="panel">
+        <h4>Моя роль</h4>
+        <h3>Что было на мне</h3>
+        <p>Пришёл не на запуск с нуля — продукт уже работал. Задача — развивать его: проектировать модули, выводить в production, держать ритм релизов и удерживать команду из 9 человек на удалёнке.</p>
+        <ul class="role-list">
+          <li>Discovery → Planning → Demo → Retro каждые 2 недели</li>
+          <li>Stakeholder management: прямая коммуникация с ключевым клиентом</li>
+          <li>Discovery sessions с PO, заказчиком и инженерами</li>
+          <li>Architecture decisions: участие на уровне модулей</li>
+          <li>Documentation: реестры решений, пивотов, user guides</li>
+          <li>Acceptance testing релизов</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="s"><div class="l">База адресов</div><div class="v">680 млн+</div></div>
+      <div class="s"><div class="l">Сетей</div><div class="v">5</div></div>
+      <div class="s"><div class="l">Команда</div><div class="v">9 чел</div></div>
+      <div class="s"><div class="l">Каденс</div><div class="v">2 нед</div></div>
+    </div>
+
+    <div style="margin-top:64px">
+      <span class="eyebrow">Что я сделал</span>
+      <h3 class="display" style="font-size:clamp(28px,3.5vw,44px);margin:8px 0 0;font-weight:500;letter-spacing:-.02em;max-width:22ch">Пять результатов, доведённых до прода или защищённых перед бизнесом.</h3>
+    </div>
+
+    <div class="achs">
+
+      <article class="ach">
+        <div class="n">01</div>
+        <div>
+          <span class="pill acc">Ядро продукта</span>
+          <h3>Indirect Exposures — ядро риск-скоринга</h3>
+          <div class="grid3">
+            <div><div class="k">Проблема</div><p>Прямых связей кошельков с криминалом недостаточно — деньги двигаются через цепочки. Кошелёк может быть формально чистым, но в трёх шагах от него — миксер.</p></div>
+            <div><div class="k">Решение</div><p>Спроектировал логику высоконагруженного аналитического модуля для многоуровневого анализа цепочек. Работал с архитектором, формулировал поведение системы, согласовывал требования с аналитиками клиента.</p></div>
+            <div><div class="k">Влияние</div><p>Модуль стал ядром риск-скоринга платформы. Без него BitTrace не имеет смысла как продукт.</p></div>
+          </div>
+          <div class="tags"><span class="pill">System design</span><span class="pill">Risk scoring</span><span class="pill">5 chains</span><span class="pill">680M+ addresses</span></div>
+        </div>
+      </article>
+
+      <article class="ach">
+        <div class="n">02</div>
+        <div>
+          <span class="pill acc">Solo delivery</span>
+          <h3>Auto-layout графа — от идеи до релиза</h3>
+          <div class="grid3">
+            <div><div class="k">Проблема</div><p>Аналитики мучились со стандартной отрисовкой длинных цепочек кошельков — её было неудобно читать и анализировать.</p></div>
+            <div><div class="k">Решение</div><p>Провёл конкурентный анализ, сформулировал гипотезу о втором режиме визуализации, написал прототип, расписал ТЗ, защитил перед продактом, довёл до production.</p></div>
+            <div><div class="k">Влияние</div><p>Новый режим отрисовки запущен полностью по моей инициативе. Пример работы PM как источника фичи, а не исполнителя запроса.</p></div>
+          </div>
+          <div class="tags"><span class="pill">Product initiative</span><span class="pill">Competitor analysis</span><span class="pill">Solo delivery</span></div>
+        </div>
+      </article>
+
+      <article class="ach">
+        <div class="n">03</div>
+        <div>
+          <span class="pill acc">Бизнес-влияние</span>
+          <h3>Резидентство Сколково</h3>
+          <div class="grid3">
+            <div><div class="k">Контекст</div><p>Компания нуждалась в легитимном статусе и налоговых льготах для продолжения работы.</p></div>
+            <div><div class="k">Решение</div><p>Самостоятельно подготовил и подал заявку на резидентство Сколково. Прошёл инвест-проверку фонда.</p></div>
+            <div><div class="k">Влияние</div><p>Статус резидента получен в 2025. Продукт получил инфраструктурную поддержку и легитимность для долгосрочной работы.</p></div>
+          </div>
+          <div class="tags"><span class="pill">Business impact</span><span class="pill">Investor relations</span><span class="pill">Compliance</span></div>
+        </div>
+      </article>
+
+      <article class="ach">
+        <div class="n">04</div>
+        <div>
+          <span class="pill acc">Удержание</span>
+          <h3>Удержание ключевого клиента</h3>
+          <div class="grid3">
+            <div><div class="k">Проблема</div><p>Скоуп пересматривался часто, требования клиента менялись, что создавало риск разрыва отношений.</p></div>
+            <div><div class="k">Решение</div><p>Взял на себя коммуникацию с заказчиком. Переводил требования в продуктовые решения, удерживал предсказуемость delivery, документировал каждый пивот.</p></div>
+            <div><div class="k">Влияние</div><p>Клиент остался. Продукт развивался под его реальные потребности. Снизился риск ухода в моменты пересмотра скоупа.</p></div>
+          </div>
+          <div class="tags"><span class="pill">Client management</span><span class="pill">Stakeholder communication</span><span class="pill">Scope control</span></div>
+        </div>
+      </article>
+
+      <article class="ach">
+        <div class="n">05</div>
+        <div>
+          <span class="pill acc">Концепция → ML</span>
+          <h3>ML-модель риск-скоринга</h3>
+          <div class="grid3">
+            <div><div class="k">Идея</div><p>Перейти от реактивной оценки риска (вот связь с криминалом) к предиктивной (этот кошелёк ведёт себя подозрительно — вероятно, скоро попадёт в чёрный список).</p></div>
+            <div><div class="k">Решение</div><p>Предложил концепцию модели на основе поведенческих паттернов. Курировал разработку, формулировал требования к данным, согласовывал архитектуру.</p></div>
+            <div><div class="k">Влияние</div><p>Модель прошла этап обучения на исторических данных, готова к интеграции в платформу.</p></div>
+          </div>
+          <div class="tags"><span class="pill">ML initiative</span><span class="pill">Predictive analytics</span><span class="pill">Concept ownership</span></div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="delta">
+      <div class="big">−30%</div>
+      <div>
+        <h4>Время согласований после реорганизации backlog</h4>
+        <p>Единый формат каждой инициативы (owner, приоритет, фиксированное решение), вынос дискуссий из комментариев Jira в discovery-сессии, документация решений и пивотов в Confluence. Параллельно — discovery-сессии (USM, Value/Effort), тарифная сетка продукта, документация полного цикла.</p>
+      </div>
+    </div>
+
+    <div class="tags" style="margin-top:32px">
+      <span class="pill dark">Jira</span>
+      <span class="pill dark">Confluence</span>
+      <span class="pill dark">Miro</span>
+      <span class="pill dark">Figma</span>
+      <span class="pill dark">Notion</span>
+      <span class="pill">Scrum</span>
+      <span class="pill">Hybrid</span>
+      <span class="pill">MoSCoW</span>
+      <span class="pill">FMEA</span>
+      <span class="pill">Value/Effort</span>
+    </div>
+  </div>
+</section>
+
+<!-- CASE: SFXDX -->
+<section class="block" id="sfxdx">
+  <div class="wrap">
+    <div class="case-h">
+      <div class="num display">06</div>
+      <div>
+        <span class="eyebrow">Кейс · Объём и темп</span>
+        <h2 class="display">SFXDX<br/>Web3 / FinTech аутсорс</h2>
+      </div>
+      <div class="right">2023 — 2024 · 16 месяцев<br/>Клиенты: ЕС, ОАЭ<br/>Английский — рабочий</div>
+    </div>
+
+    <div class="case-grid">
+      <div class="panel">
+        <h4>Контекст</h4>
+        <p style="font-size:16px">Полтора года в международном аутсорсе. Клиенты из Европы и ОАЭ. DEX, NFT, DeFi, IDO Launchpad, staking-протоколы. Английский — рабочая коммуникация на всех этапах.</p>
+        <p style="font-size:16px">Был junior-участником: вёл задачи команды, документацию, клиентскую коммуникацию, QA-цикл. Прошёл через delivery 30+ проектов.</p>
+      </div>
+      <div class="panel">
+        <h4>Что вынес</h4>
+        <ul class="role-list" style="margin-top:0">
+          <li>Скорость и многозадачность — школа через объём</li>
+          <li>Работа с международными клиентами на английском</li>
+          <li>Блокчейн-экспертиза изнутри: смарт-контракты, on-chain логика, IPFS, Infura</li>
+          <li>Полный delivery-цикл от requirements до приёмки</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sfx">
+      <article class="pj">
+        <div class="hd">
+          <h3>NFT Collection</h3>
+          <span class="pill">Ethereum · ERC-721</span>
+        </div>
+        <p style="margin:0;color:var(--ink-2)">Генерация ассетов, метаданные на IPFS, smart-контракт ERC-721, лендинг с интеграцией Metamask. Whitelist, лимиты, ценовая логика mint.</p>
+        <div class="stats">
+          <div><div class="l">Токенов</div><div class="v">10 000</div></div>
+          <div><div class="l">Бюджет</div><div class="v">$38K</div></div>
+          <div><div class="l">Срок</div><div class="v">3,5 мес</div></div>
+        </div>
+        <div class="res">Результат: <b>80%</b> коллекции продано за 10 дней</div>
+      </article>
+
+      <article class="pj">
+        <div class="hd">
+          <h3>IDO Launchpad</h3>
+          <span class="pill">Solana</span>
+        </div>
+        <p style="margin:0;color:var(--ink-2)">Платформа для запуска токенов: пулы, вестинг, ликвидность, whitelisting. Smart-контракты + UI + admin-панель. Полный delivery-цикл от discovery до передачи кода клиенту.</p>
+        <div class="stats">
+          <div><div class="l">Бюджет</div><div class="v">$62K</div></div>
+          <div><div class="l">Срок</div><div class="v">5 мес</div></div>
+          <div><div class="l">Команда</div><div class="v">7 чел</div></div>
+        </div>
+        <div class="res">Результат: <b>сдан в срок</b>, аудит без критических замечаний</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EDU -->
+<section class="block" id="edu">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">07 — Образование</span>
+        <h2 class="display">Структурированный<br/>фундамент.</h2>
+      </div>
+      <p class="sub">Технический бакалавриат + специализированный диплом PM. Один даёт язык инженеров, второй — фреймворки управления. Вместе — то, что позволяет вести discovery без переводчика.</p>
+    </div>
+    <div class="edu">
+      <div class="e">
+        <div class="yr">Яндекс Практикум · 2026</div>
+        <h3>Middle Project Manager</h3>
+        <p>Закончил после AldanDev. Программа дала структурированный язык и фреймворки для того, что я уже делал руками.</p>
+        <div class="proj">
+          <h4>Дипломный проект — FitFlow</h4>
+          <p style="font-size:14px">Мобильное приложение для сети фитнес-клубов: 15 точек, 12 000 клиентов, бюджет 2,5 млн ₽, срок 6 мес.</p>
+          <p style="font-size:14px">Продуктовое видение по Geoffrey Moore, UX-персона, CJM (6 этапов), USM для двух ролей, MVP по Value/Effort, верхнеуровневая архитектура (API Gateway + 6 сервисов), low-fi прототип (8 экранов), WBS, RACI на 9 ролей, гибридная методология, реестр 20 рисков 5×5, pitch-защита.</p>
+          <div class="tags" style="margin-top:14px">
+            <span class="pill">Cynefin</span><span class="pill">CMMI</span><span class="pill">Tuckman</span><span class="pill">MoSCoW</span><span class="pill">FMEA</span><span class="pill">RACI</span><span class="pill">WBS</span><span class="pill">Scrum</span>
+          </div>
+        </div>
+      </div>
+      <div class="e">
+        <div class="yr">НГТУ · 2023</div>
+        <h3>Бакалавр</h3>
+        <p>Информационная безопасность телекоммуникационных систем.</p>
+        <p>Технический фундамент: backend на Python в учебной практике, понимание архитектуры систем, протоколов, нагрузки. Это то, что позволяет мне сейчас разговаривать с инженерами без переводчика.</p>
+        <div class="lang">
+          <div class="lvl">B2</div>
+          <div>
+            <div class="nm">English</div>
+            <div class="nt">Активно учусь, рабочая переписка, демо, discovery</div>
+          </div>
+          <div class="bar"><i></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="block" id="process" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">08 — Первые 30 дней</span>
+        <h2 class="display">Никаких<br/>сюрпризов.</h2>
+      </div>
+      <p class="sub">Прозрачный план онбординга. Вы понимаете, что будет происходить каждую неделю — от первой до шестой. Никакого «осваиваюсь» вместо результата.</p>
+    </div>
+    <div class="timeline">
+      <div class="step">
+        <div class="wk"><span class="dot"></span> Неделя 01</div>
+        <h3>Discovery</h3>
+        <p>Аудит бэклога, текущих процессов и команды. Discovery-сессии с PO, заказчиком, ключевыми инженерами. Карта стейкхолдеров.</p>
+      </div>
+      <div class="step">
+        <div class="wk"><span class="dot"></span> Неделя 02</div>
+        <h3>Mapping</h3>
+        <p>Риск-карта проекта. Owner-ы по инициативам. Восстановление или построение release-ритма (planning, demo, retro).</p>
+      </div>
+      <div class="step">
+        <div class="wk"><span class="dot"></span> Неделя 03</div>
+        <h3>Alignment</h3>
+        <p>Перестройка backlog по Value/Effort. Согласование roadmap с бизнесом. Документация решений и приоритетов.</p>
+      </div>
+      <div class="step">
+        <div class="wk"><span class="dot"></span> Неделя 04 — 06</div>
+        <h3>First Value</h3>
+        <p>Первый релиз ценности — фича, фикс или процесс, который команда и заказчик чувствуют сразу.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="block" id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">09 — Стек и навыки</span>
+        <h2 class="display">Карта<br/>навыков.</h2>
+      </div>
+      <p class="sub">Полная карта, чтобы вы могли быстро сматчить с вакансией. Четыре блока — методологии, инструменты, домен, технический уровень.</p>
+    </div>
+    <div class="skills">
+      <div class="sk">
+        <h3>Методологии <span class="nb">16</span></h3>
+        <div class="tags">
+          <span class="pill">Scrum</span><span class="pill">Kanban</span><span class="pill">Hybrid</span>
+          <span class="pill">Lean</span><span class="pill">MVP</span><span class="pill">SDLC</span>
+          <span class="pill">Roadmapping</span><span class="pill">Release management</span>
+          <span class="pill">Risk management</span><span class="pill">Stakeholder mgmt</span>
+          <span class="pill">Team management</span><span class="pill">MoSCoW</span>
+          <span class="pill">FMEA</span><span class="pill">Value/Effort</span>
+          <span class="pill">RACI</span><span class="pill">ICE</span>
+        </div>
+      </div>
+      <div class="sk">
+        <h3>Инструменты и артефакты <span class="nb">11</span></h3>
+        <div class="tags">
+          <span class="pill dark">Jira</span><span class="pill dark">Confluence</span>
+          <span class="pill dark">Miro</span><span class="pill dark">Figma</span>
+          <span class="pill dark">Notion</span>
+          <span class="pill">User Story Map</span><span class="pill">CJM</span>
+          <span class="pill">WBS</span><span class="pill">Discovery sessions</span>
+          <span class="pill">Backlog grooming</span><span class="pill">Acceptance testing</span>
+        </div>
+      </div>
+      <div class="sk">
+        <h3>Домен <span class="nb">12</span></h3>
+        <div class="tags">
+          <span class="pill acc">Web3</span><span class="pill acc">AML / KYT</span>
+          <span class="pill acc">FinTech</span><span class="pill acc">DEX</span>
+          <span class="pill">DeFi</span><span class="pill">NFT</span>
+          <span class="pill">IDO Launchpad</span><span class="pill">Staking</span>
+          <span class="pill">On-chain analytics</span><span class="pill">Risk-scoring</span>
+          <span class="pill">Compliance</span><span class="pill">Smart-contracts</span>
+        </div>
+      </div>
+      <div class="sk">
+        <h3>Технический уровень <span class="nb">9</span></h3>
+        <div class="tags">
+          <span class="pill">Python (backend)</span><span class="pill">SQL</span>
+          <span class="pill">API · REST</span><span class="pill">Blockchain primitives</span>
+          <span class="pill">Smart-contracts logic</span><span class="pill">Infura</span>
+          <span class="pill">IPFS</span><span class="pill dark">5 chains: ETH · BTC · BSC · TRON · POLYGON</span>
+          <span class="pill">English B2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">10 — Немного обо мне</span>
+        <h2 class="display">Вне<br/>работы.</h2>
+      </div>
+      <p class="sub">Лендинг без этого — холодное резюме. Здесь — то, что не уместить в резюме, но что определяет, как я работаю.</p>
+    </div>
+    <div class="about">
+      <div class="col">
+        <div class="facts">
+          <div class="fact"><div class="em">⌂</div><div class="t">Self-hosted VPN для друзей и семьи</div></div>
+          <div class="fact"><div class="em">⚡</div><div class="t">AI-инструменты в ежедневной работе</div></div>
+          <div class="fact"><div class="em">⚔</div><div class="t">BG3, Ghost of Tsushima, CoD</div></div>
+          <div class="fact"><div class="em">◷</div><div class="t">UTC ↔ GMT+5 без боли</div></div>
+        </div>
+      </div>
+      <div class="col">
+        <p><b>Я инженер по образованию и по складу ума.</b> Люблю системы — софтверные и железные. Дома держу self-hosted VPN-сервер для друзей и родни, разбираюсь в сетевой инфраструктуре глубже, чем требуется среднему PM. Это не работа, это привычка.</p>
+        <p>Использую AI-инструменты в ежедневной работе: ускорение документации, анализ требований, ревью. <b>PM, который не использует AI в 2026 — это PM с гирями на ногах.</b></p>
+        <p>В свободное время играю — Baldur's Gate 3, Ghost of Tsushima, Call of Duty. Уважаю хорошо сделанные продукты в любой индустрии.</p>
+        <p>Базируюсь в Москве, но работаю только удалённо. Готов работать с командами в часовых поясах <b>от UTC до GMT+5</b>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="wrap">
+    <q>Координатор ждёт задачу. PM её создаёт.</q>
+    <div class="att">— моё рабочее правило</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="ctab" id="contact">
+  <div class="wrap">
+    <span class="eyebrow">12 — Если вы дочитали до сюда</span>
+    <h2 class="display" style="margin-top:18px">Давайте<br/>поговорим.</h2>
+    <p class="sub">Я открыт к ролям <b>Senior PM</b>, <b>Product Lead</b>, <b>Compliance Product Manager</b>. Финтех, Web3, AML/KYT-домены. Команды 8–15 человек. Remote, GMT+3.</p>
+    <div class="row">
+      <a class="btn primary" href="https://t.me/Khan__06">Telegram @Khan_006
+→</a>
+      <a class="btn ghost" href="/cdn-cgi/l/email-protection#96e2e1f3e4b8e1f3e2d6fbf7fffab8e4e3"><span class="__cf_email__" data-cfemail="9aeeedffe8b4edffeedaf7fbf3f6b4e8ef">[email&#160;protected]</span></a>
+      <a class="btn ghost" href="#" onclick="window.print();return false;">Скачать резюме PDF ↓</a>
+    </div>
+    <div class="reply"><span class="badge-avail"><span class="pulse"></span></span> Отвечаю в течение 24 часов в будни</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap grid">
+    <div>
+      <div class="name">Амирхан Умаев</div>
+      <div class="meta">Project Manager → Product Manager<br/>Москва · Remote · Available Q2 2026</div>
+    </div>
+    <div class="links">
+      <a href="https://t.me/Khan__06"><span>Telegram</span><span>@KHAN_006</span></a>
+      <a href="/cdn-cgi/l/email-protection#394d4e5c4b174e5c4d7954585055174b4c"><span>Email</span><span><span class="__cf_email__" data-cfemail="d9adaebcabf7aebcad99b4b8b0b5f7abac">[email&#160;protected]</span></span></a>
+      <a href="#"><span>LinkedIn</span><span>—</span></a>
+      <a href="#"><span>GitHub</span><span>—</span></a>
+    </div>
+    <div>
+      <div class="meta">© 2026<br/>Сделано вручную<br/>Last updated: May 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Counter animation for metrics
+  const fmt = (n) => {
+    if (Math.abs(n) >= 100) return n.toString();
+    return n.toString();
+  };
+  const animate = (el) => {
+    const target = parseInt(el.getAttribute('data-count'), 10);
+    if (isNaN(target)) return;
+    const small = el.querySelector('small');
+    const smallHTML = small ? small.outerHTML : '';
+    const duration = 1400;
+    const start = performance.now();
+    const from = 0;
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const v = Math.round(from + (target - from) * eased);
+      el.firstChild.nodeValue = v + '';
+      if (t < 1) requestAnimationFrame(tick);
+      else el.firstChild.nodeValue = target + '';
+    };
+    requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animate(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.4});
+  document.querySelectorAll('.metric .num[data-count]').forEach(el => io.observe(el));
+
+  // Smooth scroll polyfill (basic)
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length > 1) {
+        const target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({top: target.getBoundingClientRect().top + window.scrollY - 60, behavior:'smooth'});
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
