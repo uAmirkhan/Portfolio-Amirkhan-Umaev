@@ -78,9 +78,9 @@
   .ident-name{font-weight:600;font-size:18px}
   .ident-sub{font-size:13px;color:var(--muted)}
   .ident-rows{display:grid;gap:10px;font-size:14px}
-  .ident-row{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed var(--line-2);padding-bottom:8px}
+  .ident-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px dashed var(--line-2);padding-bottom:8px}
   .ident-row:last-child{border-bottom:0;padding-bottom:0}
-  .ident-row span:first-child{color:var(--muted);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em}
+  .ident-row span:first-child{color:var(--muted);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.12em;flex:none;white-space:nowrap}.ident-row span:last-child{text-align:right}
   .ident-row span:last-child{font-weight:500}
   .badge-avail{display:inline-flex;align-items:center;gap:6px;color:var(--accent-ink);font-weight:600}
   .badge-avail .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);position:relative;box-shadow:0 0 0 0 color-mix(in oklab,var(--accent) 50%,transparent);animation:pulse 2.4s ease-out infinite}
@@ -121,7 +121,7 @@
   @media (max-width:880px){.who{grid-template-columns:1fr}}
 
   /* ---------------- WORK ---------------- */
-  .works{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+  .works{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
   .work{position:relative;border:1px solid var(--line-2);border-radius:24px;background:var(--paper);overflow:hidden;display:flex;flex-direction:column;min-height:520px;transition:transform .3s, box-shadow .3s}
   .work:hover{transform:translateY(-4px);box-shadow:0 30px 60px -30px #15141033}
   .work .visual{aspect-ratio:1.3/1;border-bottom:1px solid var(--line-2);position:relative;overflow:hidden}
@@ -147,6 +147,8 @@
   .vis-c span{background:var(--paper);border:1px solid var(--line-2);border-radius:6px}
   .vis-c span:nth-child(odd){background:linear-gradient(135deg, var(--ink) 0%, var(--accent-ink) 100%)}
   .vis-c span:nth-child(7n){background:var(--accent)}
+  .vis-d{background:radial-gradient(circle at 50% 42%, oklch(0.30 0.06 145), #15140f 74%)}
+  .vis-d svg{position:absolute;inset:0;width:100%;height:100%}
 
   @media (max-width:880px){.works{grid-template-columns:1fr}}
 
@@ -487,11 +489,40 @@
         </div>
       </a>
       <a class="work" href="https://amirkhan06.itch.io/mars-colony" target="_blank" rel="noopener">
-        <div class="visual vis-c">
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
+        <div class="visual vis-d">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g fill="none" stroke="#f4efe633" stroke-width="1.5" stroke-dasharray="5 5">
+              <path d="M96 150 L200 96 L304 150 L200 204 Z"/>
+            </g>
+            <g stroke="oklch(0.62 0.13 145)" stroke-width="2" fill="none">
+              <path d="M112 150 L192 110"/><path d="M208 110 L288 150"/>
+              <path d="M288 162 L208 202"/><path d="M192 202 L112 162"/>
+            </g>
+            <g>
+              <ellipse cx="96" cy="156" rx="30" ry="15" fill="#15140f"/>
+              <rect x="74" y="128" width="44" height="28" rx="5" fill="oklch(0.42 0.09 145)"/>
+              <rect x="84" y="118" width="24" height="14" rx="4" fill="oklch(0.62 0.13 145)"/>
+            </g>
+            <g>
+              <ellipse cx="200" cy="102" rx="30" ry="15" fill="#15140f"/>
+              <rect x="180" y="72" width="40" height="30" rx="5" fill="oklch(0.48 0.10 145)"/>
+              <circle cx="200" cy="66" r="11" fill="oklch(0.62 0.13 145)"/>
+            </g>
+            <g>
+              <ellipse cx="304" cy="156" rx="30" ry="15" fill="#15140f"/>
+              <rect x="284" y="126" width="40" height="30" rx="5" fill="oklch(0.42 0.09 145)"/>
+              <path d="M284 126 L304 108 L324 126 Z" fill="oklch(0.62 0.13 60)"/>
+            </g>
+            <g>
+              <ellipse cx="200" cy="210" rx="34" ry="17" fill="#15140f"/>
+              <rect x="176" y="180" width="48" height="30" rx="5" fill="oklch(0.48 0.10 145)"/>
+              <rect x="186" y="170" width="28" height="12" rx="3" fill="oklch(0.62 0.13 60)"/>
+            </g>
+            <g fill="oklch(0.62 0.13 145)">
+              <circle cx="152" cy="130" r="4"/><circle cx="248" cy="130" r="4"/>
+              <circle cx="248" cy="182" r="4"/><circle cx="152" cy="182" r="4"/>
+            </g>
+          </svg>
         </div>
         <div class="body">
           <span class="role">Свой проект · 2026 · Unity 6</span>
