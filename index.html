@@ -7,7 +7,7 @@
 <meta name="description" content="Веду продукты в регулируемом финтехе и Web3. От первой гипотезы до production-релиза. Без потерь между бизнесом и кодом." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#f4efe6;
@@ -21,7 +21,7 @@
     --accent: oklch(0.62 0.13 145);
     --accent-ink: oklch(0.22 0.05 145);
     --warn: oklch(0.62 0.13 60);
-    --display:'Bricolage Grotesque', serif;
+    --display:'Onest', 'Manrope', system-ui, sans-serif;
     --sans:'Manrope', system-ui, sans-serif;
     --mono:'JetBrains Mono', ui-monospace, monospace;
     --maxw:1280px;
@@ -50,7 +50,7 @@
   nav.top .links a:hover{color:var(--ink)}
   nav.top .cta{font-size:13px;padding:9px 14px;border:1px solid var(--ink);border-radius:999px;background:var(--ink);color:var(--paper);transition:transform .2s}
   nav.top .cta:hover{transform:translateY(-1px)}
-  @media (max-width:780px){nav.top .links{display:none}}
+  @media (max-width:780px){nav.top .links{gap:18px;font-size:13px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;max-width:52vw}nav.top .links::-webkit-scrollbar{display:none}nav.top .links a{white-space:nowrap}}
 
   /* ---------------- HERO ---------------- */
   .hero{padding:clamp(48px,9vw,120px) 0 clamp(40px,6vw,80px);position:relative;overflow:hidden}
@@ -112,7 +112,7 @@
   @media (max-width:780px){.sec-head{grid-template-columns:1fr;gap:14px}}
 
   /* ---------------- FOR WHOM ---------------- */
-  .who{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .who{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
   .who .c{padding:32px;background:var(--paper);border:1px solid var(--line-2);border-radius:20px;display:flex;flex-direction:column;gap:16px;transition:transform .25s, box-shadow .25s, border-color .25s}
   .who .c:hover{transform:translateY(-4px);border-color:var(--ink);box-shadow:0 24px 60px -30px #15141033}
   .who .c .ico{width:44px;height:44px;border-radius:12px;background:var(--bg-2);display:grid;place-items:center;font-family:var(--display);font-size:20px;font-weight:500;color:var(--accent-ink)}
@@ -121,7 +121,7 @@
   @media (max-width:880px){.who{grid-template-columns:1fr}}
 
   /* ---------------- WORK ---------------- */
-  .works{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .works{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
   .work{position:relative;border:1px solid var(--line-2);border-radius:24px;background:var(--paper);overflow:hidden;display:flex;flex-direction:column;min-height:520px;transition:transform .3s, box-shadow .3s}
   .work:hover{transform:translateY(-4px);box-shadow:0 30px 60px -30px #15141033}
   .work .visual{aspect-ratio:1.3/1;border-bottom:1px solid var(--line-2);position:relative;overflow:hidden}
@@ -130,7 +130,7 @@
   .work h3{font-family:var(--display);font-size:30px;margin:0;font-weight:500;letter-spacing:-.02em;line-height:1.05}
   .work .meta{font-size:13px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em}
   .work p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.55}
-  .work .cta{margin-top:auto;padding-top:14px;border-top:1px dashed var(--line-2);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);text-transform:uppercase;font-size:12px;letter-spacing:.14em;color:var(--ink)}
+  .work .cta{margin-top:auto;padding-top:14px;border-top:1px dashed var(--line-2);display:flex;justify-content:space-between;align-items:center;font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:0;color:var(--ink)}
   .work .cta .arrow{transition:transform .3s}
   .work:hover .cta .arrow{transform:translateX(4px)}
 
@@ -204,7 +204,7 @@
   .sfx .pj{background:var(--paper);border:1px solid var(--line-2);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:14px}
   .sfx .pj .hd{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
   .sfx .pj h3{font-family:var(--display);font-size:26px;margin:0;letter-spacing:-.02em;font-weight:500}
-  .sfx .pj .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+  .sfx .pj .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:6px;margin:8px 0}
   .sfx .pj .stats div{padding:12px 14px;border:1px solid var(--line-2);border-radius:12px;background:var(--bg)}
   .sfx .pj .stats .l{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
   .sfx .pj .stats .v{font-family:var(--display);font-size:20px;font-weight:500}
@@ -262,8 +262,8 @@
   @media (max-width:880px){.about{grid-template-columns:1fr;gap:24px}}
 
   /* ---------------- QUOTE ---------------- */
-  .quote{padding:clamp(80px,11vw,160px) 0;background:var(--ink);color:var(--paper);border-top:1px solid var(--line-2)}
-  .quote q{font-family:var(--display);font-size:clamp(40px,7vw,104px);line-height:1.02;letter-spacing:-.035em;font-weight:500;quotes:"«" "»";display:block;text-wrap:balance}
+  .quote{padding:clamp(44px,6vw,72px) 0;background:var(--ink);color:var(--paper);border-top:1px solid var(--line-2)}
+  .quote q{font-family:var(--display);font-size:clamp(26px,3.4vw,44px);line-height:1.02;letter-spacing:-.035em;font-weight:500;quotes:"«" "»";display:block;text-wrap:balance}
   .quote q:before{content:open-quote;color:var(--accent);margin-right:.05em}
   .quote q:after{content:close-quote;color:var(--accent);margin-left:.05em}
   .quote .att{margin-top:32px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:#ffffffa6}
@@ -273,16 +273,16 @@
   .ctab h2{font-family:var(--display);font-size:clamp(48px,8vw,128px);margin:0;letter-spacing:-.04em;line-height:.95;font-weight:500;text-wrap:balance;max-width:18ch}
   .ctab .sub{margin-top:20px;color:var(--ink-2);font-size:18px;max-width:54ch}
   .ctab .row{display:flex;flex-wrap:wrap;gap:14px;margin-top:42px}
-  .ctab .reply{margin-top:18px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+  .ctab .reply{margin-top:18px;font-family:var(--sans);font-size:13px;letter-spacing:0;color:var(--muted)}
 
   /* ---------------- FOOTER ---------------- */
   footer{padding:48px 0;border-top:1px solid var(--line-2);font-size:14px;color:var(--ink-2)}
   footer .grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
   footer .links{display:flex;flex-direction:column;gap:8px}
-  footer .links a{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line-2);padding:8px 0;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em}
+  footer .links a{display:flex;justify-content:space-between;border-bottom:1px dashed var(--line-2);padding:8px 0;font-family:var(--sans);font-size:13px;letter-spacing:0}
   footer .links a:hover{color:var(--accent-ink)}
   footer .links a:after{content:"↗";opacity:.5}
-  footer .meta{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted)}
+  footer .meta{font-family:var(--sans);font-size:12.5px;letter-spacing:0;color:var(--muted)}
   footer .name{font-family:var(--display);font-size:28px;font-weight:500;letter-spacing:-.02em;margin-bottom:6px}
   @media (max-width:780px){footer .grid{grid-template-columns:1fr}}
 
@@ -291,12 +291,6 @@
   .scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;animation:bob 2.5s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
 
-  /* ticker */
-  .ticker{overflow:hidden;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:var(--paper);padding:14px 0;mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%)}
-  .ticker .track{display:flex;gap:56px;white-space:nowrap;animation:scroll 40s linear infinite;font-family:var(--display);font-size:22px;font-weight:500;letter-spacing:-.01em;color:var(--ink)}
-  .ticker .track span:nth-child(odd){color:var(--accent-ink)}
-  .ticker .track span:nth-child(even){opacity:.5}
-  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 </style>
 </head>
@@ -380,26 +374,7 @@
 </section>
 
 <!-- TICKER -->
-<div class="ticker" aria-hidden="true">
-  <div class="track">
-    <span>AML / KYT</span><span>·</span>
-    <span>Risk Scoring</span><span>·</span>
-    <span>Smart Contracts</span><span>·</span>
-    <span>Discovery</span><span>·</span>
-    <span>Backlog Surgery</span><span>·</span>
-    <span>Compliance</span><span>·</span>
-    <span>5 Chains</span><span>·</span>
-    <span>Stakeholder Mgmt</span><span>·</span>
-    <span>AML / KYT</span><span>·</span>
-    <span>Risk Scoring</span><span>·</span>
-    <span>Smart Contracts</span><span>·</span>
-    <span>Discovery</span><span>·</span>
-    <span>Backlog Surgery</span><span>·</span>
-    <span>Compliance</span><span>·</span>
-    <span>5 Chains</span><span>·</span>
-    <span>Stakeholder Mgmt</span><span>·</span>
-  </div>
-</div>
+
 
 <!-- FOR WHOM -->
 <section class="block" id="who">
@@ -665,7 +640,7 @@
       <span class="pill dark">Notion</span>
       <span class="pill">Scrum</span>
       <span class="pill">Hybrid</span>
-      <span class="pill">MoSCoW</span>
+      <span class="pill" style="text-transform:none">MoSCoW</span>
       <span class="pill">FMEA</span>
       <span class="pill">Value/Effort</span>
     </div>
@@ -753,7 +728,7 @@
           <p style="font-size:14px">Мобильное приложение для сети фитнес-клубов: 15 точек, 12 000 клиентов, бюджет 2,5 млн ₽, срок 6 мес.</p>
           <p style="font-size:14px">Продуктовое видение по Geoffrey Moore, UX-персона, CJM (6 этапов), USM для двух ролей, MVP по Value/Effort, верхнеуровневая архитектура (API Gateway + 6 сервисов), low-fi прототип (8 экранов), WBS, RACI на 9 ролей, гибридная методология, реестр 20 рисков 5×5, pitch-защита.</p>
           <div class="tags" style="margin-top:14px">
-            <span class="pill">Cynefin</span><span class="pill">CMMI</span><span class="pill">Tuckman</span><span class="pill">MoSCoW</span><span class="pill">FMEA</span><span class="pill">RACI</span><span class="pill">WBS</span><span class="pill">Scrum</span>
+            <span class="pill">Cynefin</span><span class="pill">CMMI</span><span class="pill">Tuckman</span><span class="pill" style="text-transform:none">MoSCoW</span><span class="pill">FMEA</span><span class="pill">RACI</span><span class="pill">WBS</span><span class="pill">Scrum</span>
           </div>
         </div>
       </div>
@@ -828,7 +803,7 @@
           <span class="pill">Lean</span><span class="pill">MVP</span><span class="pill">SDLC</span>
           <span class="pill">Roadmapping</span><span class="pill">Release management</span>
           <span class="pill">Risk management</span><span class="pill">Stakeholder mgmt</span>
-          <span class="pill">Team management</span><span class="pill">MoSCoW</span>
+          <span class="pill">Team management</span><span class="pill" style="text-transform:none">MoSCoW</span>
           <span class="pill">FMEA</span><span class="pill">Value/Effort</span>
           <span class="pill">RACI</span><span class="pill">ICE</span>
         </div>
@@ -909,7 +884,7 @@
 <!-- CTA -->
 <section class="ctab" id="contact">
   <div class="wrap">
-    <span class="eyebrow">12 — Если вы дочитали до сюда</span>
+    <span class="eyebrow">11 — Если вы дочитали до сюда</span>
     <h2 class="display" style="margin-top:18px">Давайте<br/>поговорим.</h2>
     <p class="sub">Я открыт к ролям <b>Middle Project Manager</b>, <b>Product Manager</b>, <b>Compliance PM</b>. Финтех, Web3, AML/KYT-домены. Команды 8–15 человек. Remote, GMT+3.</p>
     <div class="row">
@@ -917,7 +892,7 @@
 →</a>
       <a class="btn ghost" href="/cdn-cgi/l/email-protection#96e2e1f3e4b8e1f3e2d6fbf7fffab8e4e3"><span class="__cf_email__" data-cfemail="9aeeedffe8b4edffeedaf7fbf3f6b4e8ef">[email&#160;protected]</span></a>
       <a class="btn ghost" href="https://amirkhan06.itch.io/mars-colony" target="_blank" rel="noopener">Играть в Mars Colony &rarr;</a>
-      <a class="btn ghost" href="#" onclick="window.print();return false;">Скачать резюме PDF ↓</a>
+      <a class="btn ghost" href="https://hh.ru/resume/dd447e07ff0fa84bd40039ed1f435032614758" target="_blank" rel="noopener">Резюме на hh &rarr;</a>
     </div>
     <div class="reply"><span class="badge-avail"><span class="pulse"></span></span> Отвечаю в течение 24 часов в будни</div>
   </div>
@@ -953,7 +928,7 @@
     if (isNaN(target)) return;
     const small = el.querySelector('small');
     const smallHTML = small ? small.outerHTML : '';
-    const duration = 1400;
+    const duration = 550;
     const start = performance.now();
     const from = 0;
     const tick = (now) => {
